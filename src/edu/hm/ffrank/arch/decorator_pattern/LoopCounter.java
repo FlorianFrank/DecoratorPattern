@@ -2,9 +2,6 @@ package edu.hm.ffrank.arch.decorator_pattern;
 
 import java.util.NoSuchElementException;
 
-/**
- * Created by florianfrank on 28.04.16.
- */
 public class LoopCounter implements Counter {
 
     private int[] values;
