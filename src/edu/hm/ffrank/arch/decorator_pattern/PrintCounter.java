@@ -8,7 +8,7 @@
  * @author Florian Frank, Alioun Diagne
  */
 package edu.hm.ffrank.arch.decorator_pattern;
-
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 /**
  * This class gets another counter and a symbol.
  * By calling the tick method it concat the value before calling the tick method and the symbol
@@ -17,9 +17,9 @@ package edu.hm.ffrank.arch.decorator_pattern;
 public class PrintCounter implements Counter {
 
     /**by constructor delivered counter.*/
-    private Counter counter;
+    private final Counter counter;
     /**symbol which is being added to the current number.*/
-    private char symbol;
+    private final char symbol;
 
     /**
      * constructor sets counter and the symbol.
@@ -27,6 +27,9 @@ public class PrintCounter implements Counter {
      * @param symbol symbol which is being added to the current number
      */
     public PrintCounter(Counter counter, char symbol) {
+        if(counter == null){
+            throw  new NullPointerException();
+        }
         this.counter = counter;
         this.symbol = symbol;
     }
@@ -38,7 +41,7 @@ public class PrintCounter implements Counter {
 
     @Override
     public Counter tick() {
-        System.out.print(this.counter.read() + "" + this.symbol);
+        System.out.print(this.counter.read()+ this.symbol);
         this.counter.tick();
         return this;
     }

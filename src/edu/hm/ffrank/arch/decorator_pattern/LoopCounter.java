@@ -9,7 +9,9 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 import java.util.NoSuchElementException;
+
 
 /**
  * This class gets a number of integer values.
@@ -19,7 +21,7 @@ import java.util.NoSuchElementException;
 public class LoopCounter implements Counter {
 
     /**array for the number of one loop.*/
-    private int[] values;
+    private final int[] values;
     /**counter for tick method.*/
     private int counter;
 
@@ -42,7 +44,7 @@ public class LoopCounter implements Counter {
 
     @Override
     public Counter tick() {
-        if (this.counter == (this.values.length - 1)) {
+        if (this.counter == this.values.length - 1) {
             this.counter = 0;
         } else {
             counter++;

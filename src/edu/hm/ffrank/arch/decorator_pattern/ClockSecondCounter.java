@@ -9,6 +9,7 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 import java.util.Calendar;
 
 /**
@@ -17,6 +18,8 @@ import java.util.Calendar;
  */
 public class ClockSecondCounter implements Counter {
 
+    /**time to sleep after every looprun in the tick()-method.*/
+    private static final int TIME_TO_SLEEP=1;
     /**counter for seconds.*/
     private int counter;
 
@@ -38,9 +41,9 @@ public class ClockSecondCounter implements Counter {
             final int currentSecond = Calendar.getInstance().get(Calendar.SECOND);
             while (currentSecond == Calendar.getInstance().get(Calendar.SECOND)) {
                 try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.sleep(TIME_TO_SLEEP);
+                } catch (InterruptedException exception) {
+                    exception.printStackTrace();
                 }
             }
             this.counter++;

@@ -9,6 +9,7 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 import java.util.function.IntPredicate;
 
 /**
@@ -29,6 +30,9 @@ public class SelectedCounter implements Counter {
      * @param function lambda expression
      */
     public SelectedCounter(Counter counter, IntPredicate function) {
+        if(counter == null){
+            throw  new NullPointerException();
+        }
         if (function == null) {
             throw new NullPointerException();
         } else {

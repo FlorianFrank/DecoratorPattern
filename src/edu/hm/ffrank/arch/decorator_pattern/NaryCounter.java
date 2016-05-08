@@ -8,14 +8,20 @@
  * @author Florian Frank, Alioun Diagne
  */
 package edu.hm.ffrank.arch.decorator_pattern;
-
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 /**
  * This class counts up values of in a delivered number system.
  */
 public class NaryCounter implements Counter {
 
+    /**enhancement for every overflow of a numbersystem.*/
+    private static final int ENHANCEMENT = 10;
+    /**lowest numbersystem.*/
+    private static final int LOWEST_BASE = 2;
+    /**highest numbersystem.*/
+    private static final int HIGHEST_BASE = 9;
     /**sets the numbersystem.*/
-    private int base;
+    private final int base;
     /**represents the right part of the number.*/
     private int counter;
     /**represents the rest of the number.*/
@@ -26,7 +32,7 @@ public class NaryCounter implements Counter {
      * @param base (numbersystem)
      */
     public NaryCounter(int base) {
-        if (base > 1 && base > 9) {
+        if (base < LOWEST_BASE || base > HIGHEST_BASE) {
             throw new IllegalArgumentException();
         }
         this.base = base;
@@ -42,7 +48,7 @@ public class NaryCounter implements Counter {
     public Counter tick() {
         if (this.counter == this.base - 1) {
             this.counter = 0;
-            this.pow += 10;
+            this.pow += ENHANCEMENT;
         } else {
             counter++;
         }

@@ -9,6 +9,7 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 /**
  * this class gets a base counter.
  * the read method deliveres the current value of the base counter shifted about a
@@ -27,6 +28,9 @@ public class ShiftedCounter implements Counter {
      * @param step value of the shift
      */
     public ShiftedCounter(Counter counter, int step) {
+        if(counter == null){
+            throw  new NullPointerException();
+        }
         if (step < 0) {
             throw new IllegalArgumentException();
         } else {

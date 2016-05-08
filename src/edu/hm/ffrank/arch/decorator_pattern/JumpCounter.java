@@ -8,6 +8,7 @@
  * @author Florian Frank, Alioun Diagne
  */
 package edu.hm.ffrank.arch.decorator_pattern;
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 
 /**
  * This counter gets another counter and and the number of jumps.
@@ -30,6 +31,9 @@ public class JumpCounter implements Counter {
      * @param step number of loops
      */
     public JumpCounter(Counter deliveredCounter, int step) {
+        if(deliveredCounter == null){
+            throw  new NullPointerException();
+        }
         if (step < 0) {
             throw new IllegalArgumentException();
         } else {

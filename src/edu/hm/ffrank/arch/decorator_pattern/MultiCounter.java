@@ -8,7 +8,7 @@
  * @author Florian Frank, Alioun Diagne
  */
 package edu.hm.ffrank.arch.decorator_pattern;
-
+import edu.hm.cs.rs.arch.a03_decorator.Counter;
 /**
  * This class gets another counter and a countlimit.
  * It returns a value as long as the countlimit pretends.
@@ -28,6 +28,9 @@ public class MultiCounter implements Counter {
      * @param countlimit number of repeats
      */
     public MultiCounter(Counter deliveredCounter, int countlimit) {
+        if(deliveredCounter == null){
+            throw  new NullPointerException();
+        }
         if (countlimit < 1) {
             throw new IllegalArgumentException();
         } else {
