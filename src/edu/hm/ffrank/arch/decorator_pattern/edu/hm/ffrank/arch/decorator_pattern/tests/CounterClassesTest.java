@@ -148,6 +148,7 @@ public class CounterClassesTest {
         assertEquals(clockSecondCounter.read(), Calendar.getInstance().get(Calendar.SECOND));
     }
 
+
     @Test
     public void printCounterTest() {
         final LoopCounter loopCounter = new LoopCounter(1, 2, 3);

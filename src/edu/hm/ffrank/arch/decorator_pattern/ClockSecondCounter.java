@@ -31,20 +31,15 @@ public class ClockSecondCounter implements Counter {
 
     @Override
     public Counter tick() {
-
-        if (this.counter != Calendar.getInstance().get(Calendar.SECOND)) {
-            this.counter = Calendar.getInstance().get(Calendar.SECOND);
-        } else {
-            while (this.counter == Calendar.getInstance().get(Calendar.SECOND)) {
+            final int currentSecond = Calendar.getInstance().get(Calendar.SECOND);
+            while (currentSecond == Calendar.getInstance().get(Calendar.SECOND)) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            this.counter = Calendar.getInstance().get(Calendar.SECOND);
-        }
-
+            this.counter++;
         return this;
     }
 }
