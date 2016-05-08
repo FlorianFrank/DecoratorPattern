@@ -1,34 +1,43 @@
+/**
+ * Organisation: Hochschule München
+ * Fach: Rechnerarchitektur
+ * System: Macbook Pro Mitte 2014 (Intel Core i5 2x 2,6 Ghz, 8GB RAM, SSD)
+ * Java: Version 1.8
+ *
+ * @version 07.05.2016
+ * @author Florian Frank, Alioun Diagne
+ */
 package edu.hm.ffrank.arch.decorator_pattern;
 
-/**
- * Created by florianfrank on 28.04.16.
- */
 public class MultiCounter implements Counter {
 
-    public Counter deliveredCounter;
-    public int counter;
-    public int amount;
-    public int currentAmount;
+    private Counter deliveredCounter;
+    private int countlimit;
+    private int counter;
 
-   public MultiCounter(Counter deliveredCounter, int amount){
-        this.deliveredCounter = deliveredCounter;
-       this.amount = amount;
-       this.currentAmount = 0;
-       this.counter = this.deliveredCounter.read();
-   }
+
+    public MultiCounter(Counter deliveredCounter, int countlimit) {
+        if (countlimit < 1) {
+            throw new IllegalArgumentException();
+        } else {
+            this.deliveredCounter = deliveredCounter;
+            this.countlimit = countlimit;
+            this.counter = 1;
+        }
+    }
 
     @Override
     public int read() {
-        return this.counter;
+        return this.deliveredCounter.read();
     }
 
     @Override
     public Counter tick() {
-        if(this.currentAmount<this.amount){
-            this.currentAmount++;
-        }else {
-            this.currentAmount=0;
-            this.counter = this.deliveredCounter.tick().read();
+        if (this.counter == this.countlimit) {
+            this.deliveredCounter.tick();
+            this.counter = 1;
+        } else {
+            this.counter++;
         }
         return this;
     }

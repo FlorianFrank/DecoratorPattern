@@ -11,7 +11,9 @@ package edu.hm.ffrank.arch.decorator_pattern;
  * @version 2012-04-02
  */
 public class UCounter implements Counter {
-    /** Aktueller Zaehlerstand. */
+    /**
+     * Aktueller Zaehlerstand.
+     */
     private int currentValue = 0;
 
     @Override

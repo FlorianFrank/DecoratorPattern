@@ -1,18 +1,22 @@
+/**
+ * Organisation: Hochschule München
+ * Fach: Rechnerarchitektur
+ * System: Macbook Pro Mitte 2014 (Intel Core i5 2x 2,6 Ghz, 8GB RAM, SSD)
+ * Java: Version 1.8
+ *
+ * @version 07.05.2016
+ * @author Florian Frank, Alioun Diagne
+ */
 package edu.hm.ffrank.arch.decorator_pattern;
 
-import java.util.IllegalFormatCodePointException;
-
-/**
- * Created by florianfrank on 28.04.16.
- */
 public class NaryCounter implements Counter {
 
     int base;
     int counter;
     int pow;
 
-    public NaryCounter(int base){
-        if(base> 1 && base >9){
+    public NaryCounter(int base) {
+        if (base > 1 && base > 9) {
             throw new IllegalArgumentException();
         }
         this.base = base;
@@ -21,15 +25,15 @@ public class NaryCounter implements Counter {
 
     @Override
     public int read() {
-        return  pow+this.counter;
+        return pow + this.counter;
     }
 
     @Override
     public Counter tick() {
-        if(this.counter == this.base-1){
-            this.counter=0;
-            this.pow+=10;
-        }else {
+        if (this.counter == this.base - 1) {
+            this.counter = 0;
+            this.pow += 10;
+        } else {
             counter++;
         }
         return this;

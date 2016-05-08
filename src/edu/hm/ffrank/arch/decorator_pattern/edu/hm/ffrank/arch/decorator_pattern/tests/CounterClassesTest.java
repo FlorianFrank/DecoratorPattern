@@ -1,3 +1,12 @@
+/**
+ * Organisation: Hochschule München
+ * Fach: Rechnerarchitektur
+ * System: Macbook Pro Mitte 2014 (Intel Core i5 2x 2,6 Ghz, 8GB RAM, SSD)
+ * Java: Version 1.8
+ *
+ * @version 07.05.2016
+ * @author Florian Frank, Alioun Diagne
+ */
 package edu.hm.ffrank.arch.decorator_pattern.edu.hm.ffrank.arch.decorator_pattern.tests;
 
 import edu.hm.ffrank.arch.decorator_pattern.*;
@@ -6,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -24,7 +32,7 @@ import static org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class CounterClassesTest {
 
-    @Parameterized.Parameter(0)
+    @Parameterized.Parameter()
     public Integer numberSystem;
     @Parameterized.Parameter(1)
     public Integer tick0;
@@ -84,7 +92,7 @@ public class CounterClassesTest {
     public void loopCounterArgumentTest() {
         int[] array = new int[0];
         LoopCounter loopCounter = new LoopCounter(array);
-
+        loopCounter.tick();
     }
 
     @Test
@@ -115,6 +123,8 @@ public class CounterClassesTest {
     public void naryCounterArgumentTest() {
         NaryCounter naryCounter = new NaryCounter(1);
         NaryCounter naryCounter1 = new NaryCounter(10);
+        naryCounter.tick();
+        naryCounter1.tick();
     }
 
     @Test
@@ -130,87 +140,261 @@ public class CounterClassesTest {
     }
 
     @Test
-    public void PrintCounterTest(){
-        LoopCounter loopCounter = new LoopCounter(1,2,3);
+    public void printCounterTest() {
+        LoopCounter loopCounter = new LoopCounter(1, 2, 3);
         NaryCounter naryCounter = new NaryCounter(numberSystem);
         ClockSecondCounter clockSecondCounter = new ClockSecondCounter();
 
-        PrintCounter loopPrintCounter = new PrintCounter(loopCounter,'a');
-        PrintCounter naryPrintCounter = new PrintCounter(naryCounter,'a');
-        PrintCounter clockSecondPrintCounter = new PrintCounter(clockSecondCounter,'a');
+        PrintCounter loopPrintCounter = new PrintCounter(loopCounter, 'a');
+        PrintCounter naryPrintCounter = new PrintCounter(naryCounter, 'a');
+        PrintCounter clockSecondPrintCounter = new PrintCounter(clockSecondCounter, 'a');
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        int loopCount= 0;
+        int loopCount = 0;
         int exp = 0;
-        int narycount=0;
-        for(int i=0;i<50;i++){
-            if(loopCount==3){
+        int narycount = 0;
+        for (int i = 0; i < 50; i++) {
+            if (loopCount == 3) {
                 loopCount = 0;
             }
             loopCount++;
             loopPrintCounter.tick();
-            assertEquals(loopCount+"a",outContent.toString());
+            assertEquals(loopCount + "a", outContent.toString());
             outContent.reset();
 
             naryPrintCounter.tick();
-            assertEquals((exp+narycount)+"a",outContent.toString());
+            assertEquals((exp + narycount) + "a", outContent.toString());
             outContent.reset();
-            if(narycount==numberSystem-1){
-                exp+=10;
-                narycount=0;
-            }else {
+            if (narycount == numberSystem - 1) {
+                exp += 10;
+                narycount = 0;
+            } else {
                 narycount++;
             }
         }
 
         clockSecondPrintCounter.tick();
-        assertEquals((Calendar.getInstance().get(Calendar.SECOND)-1)+"a",outContent.toString());
+        assertEquals((Calendar.getInstance().get(Calendar.SECOND) - 1) + "a", outContent.toString());
     }
 
     @Test
-    public void jumpCounterTest(){
-        LoopCounter loopCounter = new LoopCounter(1,2,3);
+    public void jumpCounterTest() {
+        LoopCounter loopCounter = new LoopCounter(1, 2, 3);
         NaryCounter naryCounter = new NaryCounter(numberSystem);
+        NaryCounter compareNaryCounter = new NaryCounter(numberSystem);
         ClockSecondCounter clockSecondCounter = new ClockSecondCounter();
         UCounter uCounter = new UCounter();
 
-        JumpCounter uJumpCounter = new JumpCounter(uCounter,2);
-        JumpCounter loopJumpCounter = new JumpCounter(loopCounter,3);
-        JumpCounter naryJumpCounter = new JumpCounter(naryCounter,3);
-        JumpCounter clockSecondJumpCounter = new JumpCounter(clockSecondCounter,3);
+        JumpCounter uJumpCounter = new JumpCounter(uCounter, 2);
+        JumpCounter loopJumpCounter = new JumpCounter(loopCounter, 2);
+        JumpCounter naryJumpCounter = new JumpCounter(naryCounter, 3);
+        JumpCounter clockSecondJumpCounter = new JumpCounter(clockSecondCounter, 3);
 
-            assertEquals(0,uJumpCounter.read());
-            uJumpCounter.tick();
-            assertEquals(2,uJumpCounter.read());
-            uJumpCounter.tick();
-            assertEquals(4,uJumpCounter.read());
-            uJumpCounter.tick();
-            assertEquals(6,uJumpCounter.read());
+        assertEquals(0, uJumpCounter.read());
+        uJumpCounter.tick();
+        assertEquals(2, uJumpCounter.read());
+        uJumpCounter.tick();
+        assertEquals(4, uJumpCounter.read());
+        uJumpCounter.tick();
+        assertEquals(6, uJumpCounter.read());
 
-            assertEquals(3,loopJumpCounter.read());
-            loopJumpCounter.tick();
-            assertEquals(6,loopJumpCounter.read());
-            loopJumpCounter.tick();
-            assertEquals(9,loopJumpCounter.read());
-            loopCounter.tick();
-            assertEquals(3,loopJumpCounter.read());
-            loopJumpCounter.tick();
-            assertEquals(6,loopJumpCounter.read());
-            loopJumpCounter.tick();
-            assertEquals(9,loopJumpCounter.read());
+        assertEquals(1, loopJumpCounter.read());
+        loopJumpCounter.tick();
+        assertEquals(3, loopJumpCounter.read());
+        loopJumpCounter.tick();
+        assertEquals(2, loopJumpCounter.read());
+        loopJumpCounter.tick();
+        assertEquals(1, loopJumpCounter.read());
+        loopJumpCounter.tick();
+        assertEquals(3, loopJumpCounter.read());
+        loopJumpCounter.tick();
+        assertEquals(2, loopJumpCounter.read());
 
-            assertEquals(Calendar.getInstance().get(Calendar.SECOND)+4,clockSecondJumpCounter.read());
-            clockSecondJumpCounter.tick();
-            assertEquals(Calendar.getInstance().get(Calendar.SECOND)+4,clockSecondJumpCounter.read());
-            clockSecondJumpCounter.tick();
-            assertEquals(Calendar.getInstance().get(Calendar.SECOND)+4,clockSecondJumpCounter.read());
-            clockSecondJumpCounter.tick();
-            assertEquals(Calendar.getInstance().get(Calendar.SECOND)+4,clockSecondJumpCounter.read());
+        Calendar cal = Calendar.getInstance();
+        assertEquals(cal.get(Calendar.SECOND), clockSecondJumpCounter.read());
+        clockSecondJumpCounter.tick();
+        cal.add(Calendar.SECOND, 3);
+        assertEquals(cal.get(Calendar.SECOND), clockSecondJumpCounter.read());
+        clockSecondJumpCounter.tick();
+        cal.add(Calendar.SECOND, 3);
+        assertEquals(cal.get(Calendar.SECOND), clockSecondJumpCounter.read());
+        clockSecondJumpCounter.tick();
+        cal.add(Calendar.SECOND, 3);
+        assertEquals(cal.get(Calendar.SECOND), clockSecondJumpCounter.read());
 
+        assertEquals(compareNaryCounter.read(), naryJumpCounter.read());
+        naryJumpCounter.tick();
+        assertEquals(compareNaryCounter.tick().tick().tick().read(), naryJumpCounter.read());
+        naryJumpCounter.tick();
+        assertEquals(compareNaryCounter.tick().tick().tick().read(), naryJumpCounter.read());
+        naryJumpCounter.tick();
+        assertEquals(compareNaryCounter.tick().tick().tick().read(), naryJumpCounter.read());
+    }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void jumpCounterArgumentTest() {
+        UCounter uCounter = new UCounter();
+        JumpCounter jumpCounter = new JumpCounter(uCounter, -1);
+        jumpCounter.tick();
+    }
+
+    @Test
+    public void limitedCounterTest() {
+        UCounter ucounter = new UCounter();
+        LoopCounter loopCounter = new LoopCounter(1, 2, 3);
+        NaryCounter naryCounter = new NaryCounter(3);
+        ClockSecondCounter clockSecondCounter = new ClockSecondCounter();
+
+        LimitedCounter limitedUCounter = new LimitedCounter(ucounter, 10);
+        LimitedCounter limitedLoopCounter = new LimitedCounter(loopCounter, 2);
+        LimitedCounter limitedNaryCounter = new LimitedCounter(naryCounter, 10);
+        LimitedCounter limitedClockSecondCounter = new LimitedCounter(clockSecondCounter, 30);
+
+        for (int i = 0; i < 20; i++) {
+            if (i < 11) {
+                assertEquals(i, limitedUCounter.read());
+            } else {
+                assertEquals(10, limitedUCounter.read());
+            }
+            limitedUCounter.tick();
+        }
+
+        for (int i = 1; i < 20; i++) {
+            if (i % 3 == 0) {
+                assertEquals(2, limitedLoopCounter.read());
+            } else {
+                assertEquals(loopCounter.read(), limitedLoopCounter.read());
+            }
+            limitedLoopCounter.tick();
+        }
+
+        assertEquals(0, limitedNaryCounter.read());
+        limitedNaryCounter.tick();
+        assertEquals(1, limitedNaryCounter.read());
+        limitedNaryCounter.tick();
+        assertEquals(2, limitedNaryCounter.read());
+        limitedNaryCounter.tick();
+        assertEquals(10, limitedNaryCounter.read());
+        limitedNaryCounter.tick();
+        assertEquals(10, limitedNaryCounter.read());
+        limitedNaryCounter.tick();
+        assertEquals(10, limitedNaryCounter.read());
+
+        for (int i = 0; i < 10; i++) {
+            if (Calendar.getInstance().get(Calendar.SECOND) <= 30) {
+                assertEquals(Calendar.getInstance().get(Calendar.SECOND), limitedClockSecondCounter.read());
+            } else {
+                assertEquals(30, limitedClockSecondCounter.read());
+            }
+            limitedClockSecondCounter.tick();
+        }
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void limitedCounterArgumentTest() {
+        UCounter uCounter = new UCounter();
+        LimitedCounter limitedCounter = new LimitedCounter(uCounter, -2);
+        limitedCounter.tick();
+    }
+
+    @Test
+    public void multiCounterTest() {
+        UCounter uCounter = new UCounter();
+        LoopCounter loopCounter = new LoopCounter(1, 2, 3);
+        NaryCounter naryCounter = new NaryCounter(3);
+        MultiCounter uMultiCounter = new MultiCounter(uCounter, 3);
+        for (int i = 0; i < 10; i++) {
+            for (int i2 = 0; i2 < 3; i2++) {
+                assertEquals(i, uMultiCounter.read());
+                uMultiCounter.tick();
+            }
+        }
+
+        MultiCounter loopMultiCounter = new MultiCounter(loopCounter, 3);
+        for (int i = 0; i < 10; i++) {
+            for (int i2 = 3; i2 < 3; i2++) {
+                if (i % 3 == 0) {
+                    assertEquals(3, loopMultiCounter.read());
+                } else if (i % 2 == 0) {
+                    assertEquals(2, loopMultiCounter.read());
+                } else {
+                    assertEquals(1, loopMultiCounter.read());
+                }
+                loopMultiCounter.tick();
+            }
+        }
+
+        MultiCounter naryMultiCounter = new MultiCounter(naryCounter, 3);
+        assertEquals(0, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(0, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(0, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(1, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(1, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(1, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(2, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(2, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(2, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(10, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(10, naryMultiCounter.read());
+        naryMultiCounter.tick();
+        assertEquals(10, naryMultiCounter.read());
+        naryMultiCounter.tick();
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void multiCounterArgumentTest() {
+        UCounter uCounter = new UCounter();
+        MultiCounter multiCounter = new MultiCounter(uCounter, 0);
+        multiCounter.tick();
+    }
+
+    @Test
+    public void seletedCounterTest() {
+        LoopCounter loopCounter = new LoopCounter(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        SelectedCounter selectedLoopCounter = new SelectedCounter(loopCounter, n -> n % 3 == 1);
+        assertEquals(1, selectedLoopCounter.read());
+        selectedLoopCounter.tick();
+        assertEquals(4, selectedLoopCounter.read());
+        selectedLoopCounter.tick();
+        assertEquals(7, selectedLoopCounter.read());
+        selectedLoopCounter.tick();
+        assertEquals(10, selectedLoopCounter.read());
+
+        UCounter uCounter = new UCounter();
+        SelectedCounter selectedUcounter = new SelectedCounter(uCounter, n -> n % 2 == 0);
+        assertEquals(0, selectedUcounter.read());
+        selectedUcounter.tick();
+        assertEquals(2, selectedUcounter.read());
+        selectedUcounter.tick();
+        assertEquals(4, selectedUcounter.read());
+        selectedUcounter.tick();
+        assertEquals(6, selectedUcounter.read());
+        selectedUcounter.tick();
+        assertEquals(8, selectedUcounter.tick());
 
 
     }
+
+    @Test(expected = NullPointerException.class)
+    public void selectedCounterArgumentTest() {
+        LoopCounter loopCounter = new LoopCounter(1, 2, 3);
+        SelectedCounter selectedCounter = new SelectedCounter(loopCounter, null);
+        selectedCounter.tick();
+    }
+
+
 }

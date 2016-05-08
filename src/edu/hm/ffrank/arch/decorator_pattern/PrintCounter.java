@@ -1,14 +1,20 @@
+/**
+ * Organisation: Hochschule München
+ * Fach: Rechnerarchitektur
+ * System: Macbook Pro Mitte 2014 (Intel Core i5 2x 2,6 Ghz, 8GB RAM, SSD)
+ * Java: Version 1.8
+ *
+ * @version 07.05.2016
+ * @author Florian Frank, Alioun Diagne
+ */
 package edu.hm.ffrank.arch.decorator_pattern;
 
-/**
- * Created by florianfrank on 28.04.16.
- */
 public class PrintCounter implements Counter {
 
-    private char symbol;
     Counter counter;
+    private char symbol;
 
-    public PrintCounter(Counter counter, char symbol){
+    public PrintCounter(Counter counter, char symbol) {
         this.counter = counter;
         this.symbol = symbol;
     }
@@ -20,7 +26,7 @@ public class PrintCounter implements Counter {
 
     @Override
     public Counter tick() {
-        System.out.print(this.counter.read()+""+this.symbol);
+        System.out.print(this.counter.read() + "" + this.symbol);
         this.counter.tick();
         return this;
     }
