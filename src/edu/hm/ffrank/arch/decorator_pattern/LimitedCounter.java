@@ -16,9 +16,16 @@ package edu.hm.ffrank.arch.decorator_pattern;
  */
 public class LimitedCounter implements Counter {
 
+    /**limit for the counts.*/
     private int limit;
+    /**delivered counter.*/
     private Counter counter;
 
+    /**
+     * constructor sets limit and counter.
+     * @param counter delivered counter
+     * @param limit limit for all values
+     */
     public LimitedCounter(Counter counter, int limit) {
         if (limit < 0) {
             throw new IllegalArgumentException();

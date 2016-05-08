@@ -15,9 +15,20 @@ package edu.hm.ffrank.arch.decorator_pattern;
  */
 public class JumpCounter implements Counter {
 
+    /**
+     * by constructor delivered Counter.
+     */
     private Counter deliveredCounter;
+    /**
+     * number of loops for every tick()-call.
+     */
     private int step;
 
+    /**
+     * constructor sets the counter and the number of loops.
+     * @param deliveredCounter base counter
+     * @param step number of loops
+     */
     public JumpCounter(Counter deliveredCounter, int step) {
         if (step < 0) {
             throw new IllegalArgumentException();

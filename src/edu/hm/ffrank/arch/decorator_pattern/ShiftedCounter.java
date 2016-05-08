@@ -9,31 +9,41 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+/**
+ * this class gets a base counter.
+ * the read method deliveres the current value of the base counter shifted about a
+ * delivered value.
+ */
 public class ShiftedCounter implements Counter {
 
+    /**by constructor delivered counter.*/
     private Counter deliveredCounter;
+    /**the value of the shift.*/
     private int step;
-    private int counter;
 
+    /**
+     * constructor initializes the counter and the value of the shift.
+     * @param counter base counter
+     * @param step value of the shift
+     */
     public ShiftedCounter(Counter counter, int step) {
         if (step < 0) {
             throw new IllegalArgumentException();
         } else {
             this.deliveredCounter = counter;
             this.step = step;
-            this.counter = this.deliveredCounter.read() + step;
         }
 
     }
 
     @Override
     public int read() {
-        return this.counter;
+        return this.deliveredCounter.read()+step;
     }
 
     @Override
     public Counter tick() {
-        this.counter = this.deliveredCounter.tick().read() + step;
+        this.deliveredCounter.tick();
         return this;
     }
 }

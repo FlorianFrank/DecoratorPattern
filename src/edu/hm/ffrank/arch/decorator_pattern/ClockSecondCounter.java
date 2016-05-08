@@ -17,8 +17,12 @@ import java.util.Calendar;
  */
 public class ClockSecondCounter implements Counter {
 
+    /**counter for seconds.*/
     private int counter;
 
+    /**
+     * constructor sets counter to current seconds.
+     */
     public ClockSecondCounter() {
         counter = Calendar.getInstance().get(Calendar.SECOND);
     }

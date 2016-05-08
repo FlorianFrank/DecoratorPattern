@@ -8,31 +8,19 @@
  * @author Florian Frank, Alioun Diagne
  */
 
-import edu.hm.ffrank.arch.decorator_pattern.ClockSecondCounter;
-import edu.hm.ffrank.arch.decorator_pattern.LoopCounter;
-import edu.hm.ffrank.arch.decorator_pattern.SelectedCounter;
+import edu.hm.ffrank.arch.decorator_pattern.*;
 
 /**
  * Mainclass.
  */
 public class Main {
     public static void main(String[] args) {
-        /**final LoopCounter loopCounter = new LoopCounter(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-        final SelectedCounter selectedCounter = new SelectedCounter(loopCounter, n -> n % 3 == 1);
-        System.out.println(selectedCounter.read());
-        System.out.println(selectedCounter.tick().read());
-        System.out.println(selectedCounter.tick().read());
-        System.out.println(selectedCounter.tick().read());
-        System.out.println(selectedCounter.tick().read());
-        System.out.println(0 % 2);*/
-        ClockSecondCounter clockSecondCounter = new ClockSecondCounter();
-        System.out.println(clockSecondCounter.tick().read());
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(clockSecondCounter.read());
-        System.out.println(clockSecondCounter.tick().read());
+        UCounter uCounter = new UCounter();
+        ShiftedCounter shiftedCounter = new ShiftedCounter(uCounter,2);
+        System.out.println(shiftedCounter.read());
+        System.out.println(shiftedCounter.tick().read());
+        System.out.println(shiftedCounter.tick().read());
+        System.out.println(shiftedCounter.tick().read());
+        System.out.println(shiftedCounter.tick().read());
     }
 }

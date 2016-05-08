@@ -18,9 +18,15 @@ import java.util.NoSuchElementException;
  */
 public class LoopCounter implements Counter {
 
+    /**array for the number of one loop.*/
     private int[] values;
+    /**counter for tick method.*/
     private int counter;
 
+    /**
+     * constructor sets array of values of one loop.
+     * @param values values of one loop
+     */
     public LoopCounter(int... values) {
         if (values.length == 0) {
             throw new NoSuchElementException();

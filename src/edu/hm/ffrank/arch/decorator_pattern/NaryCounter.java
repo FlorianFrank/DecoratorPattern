@@ -14,10 +14,17 @@ package edu.hm.ffrank.arch.decorator_pattern;
  */
 public class NaryCounter implements Counter {
 
+    /**sets the numbersystem.*/
     private int base;
+    /**represents the right part of the number.*/
     private int counter;
+    /**represents the rest of the number.*/
     private int pow;
 
+    /**
+     * sets the numbersystem (base).
+     * @param base (numbersystem)
+     */
     public NaryCounter(int base) {
         if (base > 1 && base > 9) {
             throw new IllegalArgumentException();

@@ -15,11 +15,18 @@ package edu.hm.ffrank.arch.decorator_pattern;
  */
 public class MultiCounter implements Counter {
 
+    /**by constructor delivered counter.*/
     private Counter deliveredCounter;
+    /**number of repeats for every number.*/
     private int countlimit;
+    /**number of actual repeats of the current number.*/
     private int counter;
 
-
+    /**
+     * constructor sets the countlimit and the counter.
+     * @param deliveredCounter base counter
+     * @param countlimit number of repeats
+     */
     public MultiCounter(Counter deliveredCounter, int countlimit) {
         if (countlimit < 1) {
             throw new IllegalArgumentException();

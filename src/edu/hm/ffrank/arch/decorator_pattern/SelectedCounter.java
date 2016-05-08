@@ -17,10 +17,17 @@ import java.util.function.IntPredicate;
  */
 public class SelectedCounter implements Counter {
 
+    /**by constructor delivered Counter.*/
     private Counter deliveredCounter;
+    /**variable which saves the function of the lambda expression.*/
     private IntPredicate function;
 
-
+    /**
+     * constructor sets the counter, the function and.
+     * initializes the value for the first read()-call.
+     * @param counter base counter
+     * @param function lambda expression
+     */
     public SelectedCounter(Counter counter, IntPredicate function) {
         if (function == null) {
             throw new NullPointerException();
@@ -44,6 +51,9 @@ public class SelectedCounter implements Counter {
 
     }
 
+    /**
+     * this loop repeats as long as the lambda expresson is not valid.
+     */
     private void tickLoop() {
         while (!this.function.test(this.deliveredCounter.read())) {
             this.deliveredCounter.tick();

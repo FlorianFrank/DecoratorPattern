@@ -16,9 +16,16 @@ package edu.hm.ffrank.arch.decorator_pattern;
  */
 public class PrintCounter implements Counter {
 
+    /**by constructor delivered counter.*/
     private Counter counter;
+    /**symbol which is being added to the current number.*/
     private char symbol;
 
+    /**
+     * constructor sets counter and the symbol.
+     * @param counter base counter
+     * @param symbol symbol which is being added to the current number
+     */
     public PrintCounter(Counter counter, char symbol) {
         this.counter = counter;
         this.symbol = symbol;
