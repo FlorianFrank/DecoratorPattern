@@ -12,8 +12,8 @@ package edu.hm.ffrank.arch.decorator_pattern;
 import java.util.Calendar;
 
 /**
- * This class contains the method read which returns the actual Seconds
- * the method tick waits till the next second and and returns the actual time
+ * This class contains the method read which returns the actual Seconds.
+ * The method tick waits till the next second and and returns the actual time.
  */
 public class ClockSecondCounter implements Counter {
 
@@ -31,6 +31,7 @@ public class ClockSecondCounter implements Counter {
 
     @Override
     public Counter tick() {
+
         if (this.counter != Calendar.getInstance().get(Calendar.SECOND)) {
             this.counter = Calendar.getInstance().get(Calendar.SECOND);
         } else {

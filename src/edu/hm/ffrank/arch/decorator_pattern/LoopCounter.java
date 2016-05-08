@@ -11,6 +11,11 @@ package edu.hm.ffrank.arch.decorator_pattern;
 
 import java.util.NoSuchElementException;
 
+/**
+ * This class gets a number of integer values.
+ * after calling the tick method it returns the next value.
+ * After reaching the end it starts with the first value again.
+ */
 public class LoopCounter implements Counter {
 
     private int[] values;

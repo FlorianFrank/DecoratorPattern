@@ -9,6 +9,11 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+/**
+ * This counter gets another counter and a limit.
+ * the read method only returns the value if the value is below the limit
+ * else it returns the limit.
+ */
 public class LimitedCounter implements Counter {
 
     private int limit;

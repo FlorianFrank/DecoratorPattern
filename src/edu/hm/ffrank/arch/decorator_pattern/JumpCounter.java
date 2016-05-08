@@ -9,6 +9,10 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+/**
+ * This counter gets another counter and and the number of jumps.
+ * By calling the tick() method it counts as long as the jumps-variable pretends.
+ */
 public class JumpCounter implements Counter {
 
     private Counter deliveredCounter;

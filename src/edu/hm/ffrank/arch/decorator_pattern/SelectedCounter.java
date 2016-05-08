@@ -11,11 +11,14 @@ package edu.hm.ffrank.arch.decorator_pattern;
 
 import java.util.function.IntPredicate;
 
+/**
+ * This class gets another counter and a lambda expression.
+ * it prints out only values which accomplish the receivables of the lambda expression.
+ */
 public class SelectedCounter implements Counter {
 
     private Counter deliveredCounter;
     private IntPredicate function;
-    private int counter;
 
 
     public SelectedCounter(Counter counter, IntPredicate function) {

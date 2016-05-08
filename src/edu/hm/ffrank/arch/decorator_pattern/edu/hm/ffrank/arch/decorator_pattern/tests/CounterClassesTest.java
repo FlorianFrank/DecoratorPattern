@@ -9,6 +9,8 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern.edu.hm.ffrank.arch.decorator_pattern.tests;
 
+
+
 import edu.hm.ffrank.arch.decorator_pattern.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,35 +27,34 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.runners.Parameterized.Parameters;
 
 /**
- * Testclass for all elementary Counterclasses
+ * Testclass for all  Counterclasses
  *
- * @author florianfrank
  */
 @RunWith(Parameterized.class)
 public class CounterClassesTest {
 
     @Parameterized.Parameter()
-    public Integer numberSystem;
+    private Integer numberSystem;
     @Parameterized.Parameter(1)
-    public Integer tick0;
+    private Integer tick0;
     @Parameterized.Parameter(2)
-    public Integer tick1;
+    private Integer tick1;
     @Parameterized.Parameter(3)
-    public Integer tick2;
+    private Integer tick2;
     @Parameterized.Parameter(4)
-    public Integer tick3;
+    private Integer tick3;
     @Parameterized.Parameter(5)
-    public Integer tick4;
+    private Integer tick4;
     @Parameterized.Parameter(6)
-    public Integer tick5;
+    private Integer tick5;
     @Parameterized.Parameter(7)
-    public Integer tick6;
+    private Integer tick6;
     @Parameterized.Parameter(8)
-    public Integer tick7;
+    private Integer tick7;
     @Parameterized.Parameter(9)
-    public Integer tick8;
+    private Integer tick8;
     @Parameterized.Parameter(10)
-    public Integer tick9;
+    private Integer tick9;
 
     @Parameters
     public static List<Integer[]> data() {
@@ -315,7 +316,7 @@ public class CounterClassesTest {
 
         MultiCounter loopMultiCounter = new MultiCounter(loopCounter, 3);
         for (int i = 0; i < 10; i++) {
-            for (int i2 = 3; i2 < 3; i2++) {
+            for (int i2 = 0; i2 < 3; i2++) {
                 if (i % 3 == 0) {
                     assertEquals(3, loopMultiCounter.read());
                 } else if (i % 2 == 0) {
@@ -384,7 +385,7 @@ public class CounterClassesTest {
         selectedUcounter.tick();
         assertEquals(6, selectedUcounter.read());
         selectedUcounter.tick();
-        assertEquals(8, selectedUcounter.tick());
+        assertEquals(8, selectedUcounter.read());
 
 
     }

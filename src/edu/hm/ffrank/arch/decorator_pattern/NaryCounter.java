@@ -9,11 +9,14 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+/**
+ * This class counts up values of in a delivered number system.
+ */
 public class NaryCounter implements Counter {
 
-    int base;
-    int counter;
-    int pow;
+    private int base;
+    private int counter;
+    private int pow;
 
     public NaryCounter(int base) {
         if (base > 1 && base > 9) {

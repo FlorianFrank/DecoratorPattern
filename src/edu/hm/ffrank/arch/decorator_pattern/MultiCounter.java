@@ -9,6 +9,10 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+/**
+ * This class gets another counter and a countlimit.
+ * It returns a value as long as the countlimit pretends.
+ */
 public class MultiCounter implements Counter {
 
     private Counter deliveredCounter;

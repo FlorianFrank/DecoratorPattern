@@ -9,9 +9,14 @@
  */
 package edu.hm.ffrank.arch.decorator_pattern;
 
+/**
+ * This class gets another counter and a symbol.
+ * By calling the tick method it concat the value before calling the tick method and the symbol
+ * and prints the string out.
+ */
 public class PrintCounter implements Counter {
 
-    Counter counter;
+    private Counter counter;
     private char symbol;
 
     public PrintCounter(Counter counter, char symbol) {
